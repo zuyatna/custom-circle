@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://65dcfie5de6c"]
+
+[ext_resource type="Script" path="res://Main.cs" id="1_h3bed"]
+[ext_resource type="Script" path="res://CircleSegment.cs" id="1_i14w6"]
+[ext_resource type="Texture2D" uid="uid://b3tjlnb3d8arw" path="res://Black-Circle.png" id="2_25yjd"]
+[ext_resource type="Script" path="res://Arrow.cs" id="3_es1nq"]
+[ext_resource type="Texture2D" uid="uid://clytslmddes8n" path="res://Arrow.png" id="3_khcnt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n24d5"]
+size = Vector2(127.863, 127.863)
+
+[node name="Circle" type="Node2D"]
+script = ExtResource("1_h3bed")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="ParentBlackCircle" type="Sprite2D" parent="."]
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("2_25yjd")
+
+[node name="CircleSegment" type="Node2D" parent="ParentBlackCircle" node_paths=PackedStringArray("_pointer")]
+scale = Vector2(5.55556, 5.55556)
+script = ExtResource("1_i14w6")
+_pointer = NodePath("../CircleArrow/Area2D")
+
+[node name="CircleArrow" type="Sprite2D" parent="ParentBlackCircle" node_paths=PackedStringArray("_pointer")]
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_25yjd")
+script = ExtResource("3_es1nq")
+_pointer = NodePath("Area2D")
+
+[node name="Arrow" type="Sprite2D" parent="ParentBlackCircle/CircleArrow"]
+position = Vector2(-319.444, -3.97904e-13)
+rotation = 3.14159
+scale = Vector2(0.27, 0.27)
+texture = ExtResource("3_khcnt")
+
+[node name="Area2D" type="Area2D" parent="ParentBlackCircle/CircleArrow" groups=["Arrow"]]
+position = Vector2(-594.844, -2.40762e-05)
+rotation = -3.14159
+scale = Vector2(0.27, 0.27)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ParentBlackCircle/CircleArrow/Area2D"]
+position = Vector2(73.1069, 115.741)
+scale = Vector2(2.615, 2.615)
+shape = SubResource("RectangleShape2D_n24d5")
